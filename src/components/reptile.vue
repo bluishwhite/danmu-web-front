@@ -1,14 +1,13 @@
 <template>
   <div id="reptile">
-    <el-form :inline="true" :model="form" class="demo-form-inline">
+    <el-form :model="form" class="demo-form-inline" label-width="100px" label-position="right">
       <el-form-item
-          label="房间号"
-          prop="roomId"
-          :rules="[
+        label="房间号"
+        prop="roomId"
+        :rules="[
             { required: true, message: '房间号不能为空'}
-          ]"
-        >
-          <el-input type="roomId" v-model="form.roomId"  autocomplete="off"></el-input>
+          ]">
+        <el-input type="roomId" v-model="form.roomId" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="弹幕来源">
         <el-select v-model="form.source" placeholder="弹幕来源">
@@ -17,34 +16,32 @@
         </el-select>
       </el-form-item>
       <br>
-        
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('form')">提交</el-button>
-        </el-form-item>
-      </el-form>
-      <div>
-        <el-button round @click="analyseData()">数据分析</el-button>
-      </div>
+
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('form')">提交</el-button>
+        <el-button type="success" @click="analyseData()">数据分析</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 <script>
-  let url=""
+  let url = ""
   export default {
     data() {
       return {
-        form:{
+        form: {
           source: '',
           roomId: ''
         },
         value: ''
       }
     },
-     methods: {
+    methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
-            let url = string('www.'+form.source+'.com');
+            let url = string('www.' + form.source + '.com');
             data = JSON.stringify({
               source: form.source,
               roomId: form.roomId
@@ -57,15 +54,15 @@
           }
         });
       },
-      analyseData(){
-       
+      analyseData() {
+
       }
     }
   }
 </script>
 <style lang="scss" scoped>
-  .el-input__inner {
-    width: 450px;
+  .demo-form-inline {
+    width: 350px;
   }
 </style>
 
