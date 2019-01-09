@@ -1,45 +1,27 @@
 <template>
-  <div id="show">
-    <el-main>
-      <span> 爬取的弹幕信息 </span>
-      <el-table
-      :data="danMuData"
-      height="250"
-      border
-      style="width: 100%"
-      >
-      <el-table-column
-        prop="ID"
-        label="用户ID"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="content"
-        label="内容">
-      </el-table-column>
-      </el-table>
-      <span> 识别出的不良信息 </span>
-      <el-table
-      :data="tableData1"
-      stripe
-      style="width: 100%">
-        <el-table-column
-          prop="category"
-          label="类别"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="ID"
-          label="用户ID"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="content"
-          label="内容">
-        </el-table-column>
-      </el-table>
+  <el-container>
+    <el-main class="show-main">
+      <el-col :span="12" class="show-main-col">
+        <el-main class="show-main-dtl-main">
+          <div class="show-brand">弹幕信息</div>
+          <el-table :data="danMuData">
+            <el-table-column prop="ID" label="用户ID" width="180"></el-table-column>
+            <el-table-column prop="content" label="内容"></el-table-column>
+          </el-table>
+        </el-main>
+      </el-col>
+      <el-col :span="12">
+        <el-main>
+          <div class="show-brand">不良信息</div>
+          <el-table :data="tableData1" stripe>
+            <el-table-column prop="category" label="类别" width="180"></el-table-column>
+            <el-table-column prop="ID" label="用户ID" width="180"></el-table-column>
+            <el-table-column prop="content" label="内容"></el-table-column>
+          </el-table>
+        </el-main>
+      </el-col>
     </el-main>
-  </div>
+  </el-container>
 </template>
 
 
@@ -47,9 +29,9 @@
   export default {
     data() {
       return {
-        danMuData:[{
-          ID:'253946542',
-          content:'金咕咕送火箭了',
+        danMuData: [{
+          ID: '253946542',
+          content: '金咕咕送火箭了',
         }],
         tableData1: [{
           category: '广告信息',
@@ -70,21 +52,31 @@
         }]
       }
     },
-    created(){
+    created() {
       this.$axios.get("https://easy-mock.com/mock/5c2cb9d71d8d3d65c3bf4f7c/example/bluishwhite/danMuData?=123")
-      .then(data => {
-        this.danMuData = data.data;    
-      })
+        .then(res => {
+          this.danMuData = res.data.data.danMuData;
+        })
     }
   };
 </script>
 
 <style lang="scss" scoped>
-span{
-  font-size: 35px;
-}
-.el-table{
-  margin: 25px 0;
-}
+  .show-main {
+    height: calc(100vh - 120px);
+  }
+
+  .show-main-col, .show-main-dtl-main {
+    height: 100%;
+  }
+
+  .show-brand {
+    margin-left: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  .el-table {
+    margin-top: 10px;
+  }
 
 </style>
